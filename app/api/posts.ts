@@ -1,8 +1,8 @@
 export const fetchPosts = async () => {
-  const res = await fetch("/api/posts");
+  const res = await fetch("/api/post");
 
   if (!res.ok) {
-    return 0;
+    throw new Error("Failed to fetch posts");
   }
 
   return res.json();
