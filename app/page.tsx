@@ -20,11 +20,12 @@ export default function Home() {
 
       <button onClick={() => refetch()}>다시 불러오기</button>
 
-      <ul>
-        {data.map((post: any) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
+      {data.map((post: any) => (
+        <div key={post.id}>
+          <h1>{post.title}</h1>
+          {post.body}
+        </div>
+      ))}
     </main>
   );
 }
