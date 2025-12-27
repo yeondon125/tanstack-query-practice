@@ -1,3 +1,31 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { fetchPosts } from "./api/posts";
+
 export default function Home() {
-  return <div className="">안녕하세요</div>;
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60 * 5,
+  });
+
+  if (isLoading) return <p>로딩 중...</p>;
+  if (isError) return <p>에러 발생</p>;
+
+  return (
+    <main>
+      <h1>게시글 목록</h1>
+
+      <button onClick={() => refetch()}>다시 불러오기</button>
+
+      {data.map((post: any) => (
+        <div key={post.id}>
+          <h1>{post.title}</h1>
+          {post.body}
+        </div>
+      ))}
+    </main>
+  );
 }
